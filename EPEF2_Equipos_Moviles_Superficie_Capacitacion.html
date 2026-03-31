@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capacitación EPEF N°2 – Equipos Móviles de Superficie | Mantoverde</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f0ede8;color:#1c1c1c}
+  a{color:inherit;text-decoration:none}
+
+  header{background:#CC4E10;color:#fff;padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+  header h1{font-size:1.05rem;font-weight:600;letter-spacing:.5px}
+  header span{font-size:.8rem;opacity:.85}
+
+  .hero{background:#1c1c1c;color:#fff;padding:3rem 2rem 2.5rem;text-align:center}
+  .hero .badge{display:inline-block;background:rgba(204,78,16,.25);border:1px solid #CC4E10;color:#ffb38a;font-size:.75rem;letter-spacing:2px;padding:4px 14px;border-radius:20px;margin-bottom:1rem}
+  .hero h2{font-size:2.6rem;font-weight:700;line-height:1.15}
+  .hero h2 span{color:#CC4E10}
+  .hero p{margin-top:.75rem;color:#aaa;font-size:1rem}
+  .hero-meta{margin-top:1.5rem;display:flex;justify-content:center;gap:2rem;flex-wrap:wrap}
+  .hero-meta div{text-align:center}
+  .hero-meta .num{font-size:2rem;font-weight:700;color:#CC4E10}
+  .hero-meta .lbl{font-size:.75rem;color:#888;margin-top:2px}
+
+  nav.tabs{background:#fff;border-bottom:2px solid #e8e4de;display:flex;overflow-x:auto;position:sticky;top:57px;z-index:99}
+  nav.tabs button{flex-shrink:0;background:none;border:none;padding:.85rem 1.4rem;font-size:.88rem;cursor:pointer;color:#6b6b6b;font-weight:500;border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap}
+  nav.tabs button.active{color:#CC4E10;border-bottom-color:#CC4E10}
+  nav.tabs button:hover:not(.active){color:#1c1c1c;background:#faf8f5}
+
+  .section{display:none;max-width:960px;margin:2rem auto;padding:0 1.5rem 4rem}
+  .section.show{display:block}
+
+  .card{background:#fff;border-radius:12px;border:1px solid #e8e4de;margin-bottom:1.25rem;overflow:hidden}
+  .card-header{background:#1c1c1c;color:#fff;padding:.75rem 1.25rem;font-size:.95rem;font-weight:600;display:flex;align-items:center;gap:.75rem}
+  .card-header .dot{width:10px;height:10px;border-radius:50%;background:#CC4E10;flex-shrink:0}
+  .card-body{padding:1.25rem}
+  .card-body p,.card-body li{font-size:.92rem;line-height:1.65;color:#333}
+  .card-body ul{padding-left:1.3rem}
+  .card-body li{margin-bottom:.35rem}
+
+  .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-bottom:1.25rem}
+  .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-bottom:1.25rem}
+
+  .info-box{background:#fff;border:1px solid #e8e4de;border-radius:12px;overflow:hidden}
+  .info-box .ib-top{background:#CC4E10;height:5px}
+  .info-box .ib-body{padding:1.1rem}
+  .info-box .ib-icon{width:40px;height:40px;border-radius:10px;background:#faece7;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:.75rem}
+  .info-box h4{font-size:.92rem;font-weight:600;color:#1c1c1c;margin-bottom:.5rem}
+  .info-box p{font-size:.85rem;color:#6b6b6b;line-height:1.55}
+
+  .rule-row{display:flex;align-items:stretch;margin-bottom:.5rem;border-radius:8px;overflow:hidden;border:1px solid #e8e4de}
+  .rule-row .rr-label{background:#CC4E10;color:#fff;font-size:.82rem;font-weight:600;padding:.65rem .9rem;min-width:170px;display:flex;align-items:center}
+  .rule-row .rr-val{background:#fff;padding:.65rem .9rem;font-size:.85rem;color:#333;display:flex;align-items:center;flex:1;flex-wrap:wrap;gap:4px}
+
+  .alert{background:#fff3ed;border-left:4px solid #CC4E10;border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin-bottom:1rem;font-size:.9rem;color:#7a2800}
+  .danger{background:#fcebeb;border-left:4px solid #c0392b;border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin-bottom:.75rem;font-size:.88rem;color:#7b1f1f}
+  .ok-box{background:#eaf3de;border-left:4px solid #1e7b34;border-radius:0 8px 8px 0;padding:.9rem 1.1rem;margin-bottom:.75rem;font-size:.88rem;color:#1e4a24}
+
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr}}
+
+  .steps{counter-reset:step}
+  .step{display:flex;gap:1rem;margin-bottom:1rem;align-items:flex-start}
+  .step-num{width:36px;height:36px;border-radius:50%;background:#CC4E10;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;margin-top:2px}
+  .step-body h4{font-size:.92rem;font-weight:600;color:#1c1c1c}
+  .step-body p{font-size:.85rem;color:#6b6b6b;margin-top:3px;line-height:1.55}
+
+  .tag{display:inline-block;font-size:.75rem;padding:2px 10px;border-radius:20px;margin:2px}
+  .tag.red{background:#fcebeb;color:#a32d2d}
+  .tag.green{background:#eaf3de;color:#1e7b34}
+  .tag.blue{background:#e6f1fb;color:#185fa5}
+  .tag.amber{background:#faeeda;color:#854f0b}
+  .tag.dark{background:#e8e4de;color:#333}
+
+  table{width:100%;border-collapse:collapse;font-size:.85rem}
+  th{background:#1c1c1c;color:#fff;padding:.55rem .8rem;text-align:left;font-weight:600}
+  td{padding:.5rem .8rem;border-bottom:1px solid #e8e4de;color:#333}
+  tr:nth-child(even) td{background:#faf8f5}
+
+  /* QUIZ */
+  .q-num{font-size:.8rem;color:#aaa;margin-bottom:.35rem}
+  .q-text{font-size:1rem;font-weight:600;color:#1c1c1c;margin-bottom:1rem}
+  .opt{background:#f5f3ef;border:1px solid #e8e4de;border-radius:8px;padding:.75rem 1rem;margin-bottom:.6rem;cursor:pointer;font-size:.9rem;color:#1c1c1c;transition:all .12s}
+  .opt:hover{background:#faece7;border-color:#CC4E10}
+  .opt.correct{background:#eaf3de;border-color:#1e7b34;color:#1e4a24}
+  .opt.wrong{background:#fcebeb;border-color:#c0392b;color:#7b1f1f}
+  .feedback{font-size:.85rem;margin-top:.75rem;padding:.75rem 1rem;border-radius:8px;display:none}
+  .feedback.ok-f{background:#eaf3de;color:#1e4a24}
+  .feedback.err-f{background:#fcebeb;color:#7b1f1f}
+  .progress-wrap{background:#e8e4de;border-radius:4px;height:5px;margin-bottom:1.25rem;overflow:hidden}
+  .progress-fill{height:100%;background:#CC4E10;transition:width .3s;border-radius:4px}
+  #next-btn{display:none;background:#CC4E10;color:#fff;border:none;border-radius:8px;padding:.6rem 1.4rem;font-size:.9rem;cursor:pointer;margin-top:.75rem}
+  #next-btn:hover{background:#a83d0c}
+  .score-wrap{text-align:center;padding:2rem}
+  .score-wrap .score-icon{font-size:3rem;margin-bottom:.75rem}
+  .score-wrap h3{font-size:1.5rem;font-weight:700}
+  .score-wrap p{color:#6b6b6b;margin-top:.5rem}
+  #restart-btn{background:#CC4E10;color:#fff;border:none;border-radius:8px;padding:.65rem 1.6rem;font-size:.9rem;cursor:pointer;margin-top:.75rem}
+
+  /* NOMBRE INPUT */
+  .name-form{margin-bottom:1.5rem}
+  .name-form label{display:block;font-size:.85rem;color:#6b6b6b;margin-bottom:.4rem;font-weight:500}
+  .name-form input{width:100%;max-width:400px;padding:.65rem 1rem;border:1.5px solid #e8e4de;border-radius:8px;font-size:.95rem;font-family:'Segoe UI',Arial,sans-serif;outline:none;transition:border .15s}
+  .name-form input:focus{border-color:#CC4E10}
+
+  /* CERTIFICADO */
+  #cert-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:999;align-items:center;justify-content:center;padding:1rem}
+  #cert-overlay.show{display:flex}
+  #cert-box{background:#fff;border-radius:16px;max-width:680px;width:100%;padding:0;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+  .cert-top{background:#1c1c1c;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between}
+  .cert-top span{color:#CC4E10;font-weight:700;letter-spacing:1.5px;font-size:.8rem}
+  .cert-top button{background:none;border:none;color:#aaa;font-size:1.4rem;cursor:pointer;line-height:1}
+  .cert-body{padding:2rem 2.5rem;text-align:center}
+  .cert-seal{width:80px;height:80px;border-radius:50%;background:#1c1c1c;border:4px solid #CC4E10;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 1.25rem}
+  .cert-body h2{font-size:1.0rem;color:#6b6b6b;font-weight:400;letter-spacing:2px;text-transform:uppercase;margin-bottom:.35rem}
+  .cert-body .cert-name{font-size:1.5rem;color:#CC4E10;font-weight:700;border-bottom:2px solid #CC4E10;display:inline-block;padding-bottom:4px;margin:1rem 0 .5rem}
+  .cert-body .cert-course{font-size:.95rem;color:#444;margin-bottom:.25rem}
+  .cert-body .cert-std{font-size:.82rem;color:#999;margin-bottom:1.25rem}
+  .cert-divider{border:none;border-top:1px dashed #e8e4de;margin:1.25rem 0}
+  .cert-meta{display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+  .cert-meta div{text-align:center}
+  .cert-meta .cm-val{font-size:1.1rem;font-weight:700;color:#1c1c1c}
+  .cert-meta .cm-lbl{font-size:.75rem;color:#999;margin-top:2px}
+  .cert-actions{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+  .cert-actions button{padding:.6rem 1.4rem;border-radius:8px;font-size:.88rem;cursor:pointer;font-family:'Segoe UI',Arial,sans-serif}
+  .btn-print{background:#CC4E10;color:#fff;border:none}
+  .btn-print:hover{background:#a83d0c}
+  .btn-close{background:#fff;color:#1c1c1c;border:1.5px solid #e8e4de}
+  .btn-close:hover{background:#f5f3ef}
+
+  @media print{
+    body > *:not(#cert-overlay){display:none!important}
+    #cert-overlay{display:flex!important;position:static;background:none;padding:0}
+    #cert-box{box-shadow:none;border-radius:0;max-width:100%}
+    .cert-top button,.cert-actions{display:none!important}
+    .cert-top{background:#1c1c1c!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .cert-seal{background:#1c1c1c!important;border-color:#CC4E10!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+
+  footer{background:#1c1c1c;color:#888;text-align:center;padding:1.5rem;font-size:.8rem}
+  footer strong{color:#CC4E10}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⛏ Capstone Copper · Mantoverde — EPEF N°2 Equipos Móviles de Superficie</h1>
+  <span>CC.MV.GSSO.E002 · v0 · 01/12/2023</span>
+</header>
+
+<div class="hero">
+  <div class="badge">ESTÁNDAR PARA LA ELIMINACIÓN DE FATALIDADES</div>
+  <h2>Equipos Móviles <span>de Superficie</span></h2>
+  <p>Capacitación simplificada para todo el personal y contratistas de Mantoverde</p>
+  <div class="hero-meta">
+    <div><div class="num">2</div><div class="lbl">grupos de equipos</div></div>
+    <div><div class="num">20+</div><div class="lbl">tipos de equipos cubiertos</div></div>
+    <div><div class="num">100%</div><div class="lbl">obligatorio para todos</div></div>
+    <div><div class="num">8/8</div><div class="lbl">requerido para aprobar</div></div>
+  </div>
+</div>
+
+<nav class="tabs" id="tabs">
+  <button class="active" onclick="show('intro')">¿De qué trata?</button>
+  <button onclick="show('equipo')">El equipo</button>
+  <button onclick="show('operacion')">Operación segura</button>
+  <button onclick="show('conductor')">El operador</button>
+  <button onclick="show('quiz')">Verifica lo aprendido</button>
+</nav>
+
+<!-- ══════════════════ INTRO ══════════════════ -->
+<div class="section show" id="s-intro">
+  <div class="card">
+    <div class="card-header"><div class="dot"></div>¿Qué es un Equipo Móvil de Superficie (EMS)?</div>
+    <div class="card-body">
+      <div class="alert">Es todo equipo que <strong>NO cumple</strong> la definición de Vehículo Liviano del EPEF N°1. En términos simples: todo equipo más grande que una camioneta, furgón o van.</div>
+      <div class="two-col">
+        <div>
+          <strong style="color:#CC4E10;display:block;margin-bottom:.5rem">🏗️ Equipos fuera de carretera</strong>
+          <div style="display:flex;flex-wrap:wrap;gap:4px">
+            <span class="tag dark">Camión CAEX</span><span class="tag dark">Cargador frontal</span><span class="tag dark">Bulldozer</span><span class="tag dark">Excavadora</span><span class="tag dark">Retroexcavadora</span><span class="tag dark">Motoniveladora</span><span class="tag dark">Wheeldozer</span><span class="tag dark">Perforadora</span><span class="tag dark">Pala</span><span class="tag dark">Grúa móvil</span><span class="tag dark">Grúa horquilla</span><span class="tag dark">Manipulador telescópico</span><span class="tag dark">Camión articulado dumper</span><span class="tag dark">Rodillo</span><span class="tag dark">Minicargador</span>
+          </div>
+        </div>
+        <div>
+          <strong style="color:#CC4E10;display:block;margin-bottom:.5rem">🚛 Equipos de carretera</strong>
+          <div style="display:flex;flex-wrap:wrap;gap:4px">
+            <span class="tag dark">Minibús (+12 ocup.)</span><span class="tag dark">Bus (+21 ocup.)</span><span class="tag dark">Camión tolva</span><span class="tag dark">Camión aljibe</span><span class="tag dark">Camión pluma</span><span class="tag dark">Camión lubricador</span><span class="tag dark">Camión hidrolavador</span><span class="tag dark">Camión combustible</span><span class="tag dark">Camión explosivos</span><span class="tag dark">Camión sonda</span><span class="tag dark">Camión fábrica</span><span class="tag dark">Camión aspirador</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="info-box">
+      <div class="ib-top"></div>
+      <div class="ib-body">
+        <div class="ib-icon">👷</div>
+        <h4>¿A quién aplica?</h4>
+        <p>A todas las empresas, contratistas y visitantes que operen EMS al interior de Mantoverde.</p>
+      </div>
+    </div>
+    <div class="info-box">
+      <div class="ib-top"></div>
+      <div class="ib-body">
+        <div class="ib-icon">⚠️</div>
+        <h4>Carácter: obligatorio</h4>
+        <p>Donde aparezca la palabra <strong>"debe"</strong> en el estándar, es una obligación sin excepción.</p>
+      </div>
+    </div>
+    <div class="info-box">
+      <div class="ib-top"></div>
+      <div class="ib-body">
+        <div class="ib-icon">📋</div>
+        <h4>Acreditación en WORKMATE</h4>
+        <p>Todo equipo debe acreditarse en la plataforma WORKMATE con certificado de cumplimiento del estándar.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ EQUIPO ══════════════════ -->
+<div class="section" id="s-equipo">
+
+  <div class="card">
+    <div class="card-header"><div class="dot"></div>Seguridad básica obligatoria</div>
+    <div class="card-body">
+      <div class="two-col">
+        <div>
+          <h4 style="margin-bottom:.4rem;color:#CC4E10">🔒 Cinturón de seguridad</h4>
+          <p>Para todos los ocupantes. Solo dispositivos originales de fábrica.</p>
+        </div>
+        <div>
+          <h4 style="margin-bottom:.4rem;color:#CC4E10">🔑 Punto de aislación/bloqueo</h4>
+          <p>Dispositivo corta-corriente que permita colocar candado de bloqueo solo cuando está en posición OFF. Debe incluir cuñas, inmovilizadores de articulación u otros según tipo de equipo.</p>
+        </div>
+        <div>
+          <h4 style="margin-bottom:.4rem;color:#CC4E10">🛡️ Protección contra vuelco</h4>
+          <p>Equipos fuera de carretera: cabina certificada ROPS. Equipos de carretera: norma equivalente (ECE R-66, ISO 3471, ISO 12117 u otra).</p>
+        </div>
+        <div>
+          <h4 style="margin-bottom:.4rem;color:#CC4E10">🧱 Protección FOPS</h4>
+          <p>Equipos expuestos a caída de rocas (área mina, bodega) deben tener cabina con protección certificada FOPS o norma equivalente.</p>
+        </div>
+        <div>
+          <h4 style="margin-bottom:.4rem;color:#CC4E10">🚨 Frenos de doble protección</h4>
+          <p>Sistema de frenos que se aplique automáticamente si falla el sistema principal (tipo SAHR, frenos de aire o similares).</p>
+        </div>
+        <div>
+          <h4 style="margin-bottom:.4rem;color:#CC4E10">🔼 Vías de acceso seguras</h4>
+          <p>Escalas, pasillos con barandas, manillas y escalones. Demarcado el uso de <strong>3 puntos de apoyo</strong> para subir/bajar. Vía alternativa de escape en equipos grandes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="dot"></div>Sistemas anticolisión — diferencia clave por área</div>
+    <div class="card-body">
+      <div class="rule-row"><div class="rr-label">Área Mina</div><div class="rr-val">Sistema <strong>CAS</strong> operativo y calibrado. Algunos equipos deben tener CAS + PRECO (ver Instructivo I022).</div></div>
+      <div class="rule-row"><div class="rr-label">Área Planta</div><div class="rr-val">Sistema <strong>PRECO</strong> para evitar colisiones en marcha de retroceso.</div></div>
+      <div class="rule-row"><div class="rr-label">Áreas estrechas</div><div class="rr-val">Talleres, bodegas, patios: sistema <strong>PRECO</strong> obligatorio (ej. grúa horquilla).</div></div>
+      <div class="rule-row"><div class="rr-label">Excepciones</div><div class="rr-val">Excavadoras y grúas móviles: PRECO no es instalable por diseño. Gestionar con señaleros o aislación del sector.</div></div>
+      <div class="ok-box" style="margin-top:.75rem">✅ CAEX, cargadores frontales, palas y perforadoras están <strong>exceptuados del uso de pértiga</strong>.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="dot"></div>Visibilidad y comunicación</div>
+    <div class="card-body">
+      <div class="rule-row"><div class="rr-label">Pértiga</div><div class="rr-val">Mín. 4,5 m en Mina / 4,3 m en otras áreas. Banderín naranja fluorescente 300×250 mm + LED rojo flash. Equipos de carretera que ingresan a mina: pértiga completamente iluminada.</div></div>
+      <div class="rule-row"><div class="rr-label">Baliza ámbar</div><div class="rr-val">Instalación fija con interruptor y fusible, en el punto más alto del equipo. <span class="tag red">Prohibida: portátil, magnética o de enchufe encendedor</span></div></div>
+      <div class="rule-row"><div class="rr-label">Cintas reflectantes</div><div class="rr-val"><span class="tag amber">Blancas adelante</span> <span class="tag amber">Amarillo limón en laterales</span> <span class="tag red">Rojas atrás</span> — ancho 50 mm cubriendo todo el perímetro a media altura.</div></div>
+      <div class="rule-row"><div class="rr-label">Radio manos libres</div><div class="rr-val">Marcas indicadas en el Estándar de Radiocomunicación Mantoverde. Programada con frecuencias de la operación.</div></div>
+      <div class="rule-row"><div class="rr-label">Alarma retroceso</div><div class="rr-val">80 dB en tonos agudos, obligatoria en todos los EMS.</div></div>
+      <div class="rule-row"><div class="rr-label">Bocina</div><div class="rr-val">Nivel sonoro suficiente para ser escuchada en ambiente ruidoso.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="dot"></div>Protección contra incendio</div>
+    <div class="card-body">
+      <div class="two-col">
+        <div>
+          <h4 style="margin-bottom:.4rem;color:#CC4E10">🔥 Supresor de incendio (ANSUL/AFEX)</h4>
+          <p>Los equipos indicados en Instructivo I022 deben tener sistema semiautomático de supresión de incendio. Activación desde la cabina <strong>y</strong> desde el nivel de piso.</p>
+        </div>
+        <div>
+          <h4 style="margin-bottom:.4rem;color:#CC4E10">🧯 Extintores manuales PQS</h4>
+          <p>Todos los equipos deben tener uno o más extintores de fácil acceso, ubicados cerca de la cabina y zonas de mayor carga de fuego. Tamaño: <strong>6 o 10 kg</strong> según el equipo.</p>
+        </div>
+      </div>
+      <div class="alert" style="margin-top:.5rem">Los equipos fuera de carretera (CAEX, cargadores frontales y otros) deben tener <strong>mantas ignífugas</strong> en sus zonas calientes (tubos de escape, turbos) para evitar contacto con líquidos inflamables en caso de fuga.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="dot"></div>Otros requisitos del equipo</div>
+    <div class="card-body">
+      <div class="rule-row"><div class="rr-label">Láminas anti-impacto</div><div class="rr-val">En todos los vidrios. Mínimo 3 mils, certificadas e identificadas. <strong>No instalar en vidrios de salida de emergencia</strong> de vehículos de pasajeros.</div></div>
+      <div class="rule-row"><div class="rr-label">A/C y calefacción</div><div class="rr-val">En buen estado. Ventanas siempre cerradas para proteger de polvo, ruido y agentes externos.</div></div>
+      <div class="rule-row"><div class="rr-label">Neumático de repuesto</div><div class="rr-val">En equipos de carretera: siempre listo, con presión correcta y sin defectos en banda.</div></div>
+      <div class="rule-row"><div class="rr-label">Cuñas</div><div class="rr-val">2 cuñas acordes al neumático, color <span class="tag amber">amarillo</span> o <span class="tag amber">naranja</span>, no metálicas. <span class="tag green">Exceptuados: equipos con implemento que baja a piso (cargador frontal, motoniveladora, bulldozer, wheeldozer)</span></div></div>
+      <div class="rule-row"><div class="rr-label">Protecciones</div><div class="rr-val">Todas las partes móviles y calientes deben estar protegidas del contacto con personas.</div></div>
+      <div class="rule-row"><div class="rr-label">Estanques presurizados</div><div class="rr-val">Inspección por organismo competente <strong>2 veces al año</strong>. Certificado presentar al Administrador de Contrato Mantoverde.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ OPERACIÓN ══════════════════ -->
+<div class="section" id="s-operacion">
+
+  <div class="card">
+    <div class="card-header"><div class="dot"></div>Pre-uso y condiciones de no operar</div>
+    <div class="card-body">
+      <div class="alert"><strong>El operador debe realizar el pre-uso antes de cada turno.</strong> La lista de verificación se mantiene en la cabina y debe ser revisada por supervisión.</div>
+      <p style="margin-bottom:.75rem;font-size:.9rem">Los elementos críticos de operación, si están defectuosos o inexistentes, son <strong style="color:#c0392b">Condiciones de No Operar</strong>:</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:.75rem">
+        <span class="tag red">Frenos</span><span class="tag red">Dirección</span><span class="tag red">Estado de neumáticos</span><span class="tag red">Otros según fabricante</span>
+      </div>
+      <div class="danger">Si cualquiera de estos elementos está fuera de estándar, el equipo <strong>se detiene inmediatamente</strong>. Incluye prueba de funcionamiento de frenos.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="dot"></div>Plan de Gestión de Tráfico — lo que debes saber</div>
+    <div class="card-body">
+      <div class="two-col">
+        <div>
+          <ul>
+            <li>Segregación de peatones, vehículos livianos y equipos pesados</li>
+            <li>Respetar los límites de velocidad establecidos</li>
+            <li>Respetar el derecho a paso y las normas de adelantamiento</li>
+            <li>Normas de entrada/salida de talleres con peatones presentes</li>
+            <li>Zonas de estacionamiento habilitadas para cada tipo de equipo</li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li>En mantenimiento: operador fuera de la cabina y en el piso si no es requerido</li>
+            <li>Condiciones anormales (lluvia, viento, neblina): criterio de parar definido con responsable</li>
+            <li>Procedimientos claros de comunicación entre vehículos</li>
+            <li>Control de equipos cerca de cables aéreos de energía eléctrica</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="dot"></div>Reglas clave de operación</div>
+    <div class="card-body">
+      <div class="rule-row"><div class="rr-label">Celular al volante</div><div class="rr-val"><span class="tag red">PROHIBIDO</span> usar el celular durante la conducción, aunque tenga manos libres. Solo cuando el equipo esté <strong>detenido en zona segura</strong>.</div></div>
+      <div class="rule-row"><div class="rr-label">Sobrecarga</div><div class="rr-val">Los equipos no deben ser sobrecargados bajo ninguna circunstancia.</div></div>
+      <div class="rule-row"><div class="rr-label">Superficies y pendientes</div><div class="rr-val">Los equipos deben operar sobre superficies estables y dentro de los límites de pendiente segura del fabricante.</div></div>
+      <div class="rule-row"><div class="rr-label">Post-mantenimiento</div><div class="rr-val">Todo equipo debe tener una prueba operacional luego de ser atendido por mantenimiento antes de volver a operar.</div></div>
+      <div class="rule-row"><div class="rr-label">Estacionamiento</div><div class="rr-val">Aplicar normas de inmovilización (cuñas, zanjas/trincheras). Incluye detenciones por avería o mantenimiento.</div></div>
+      <div class="rule-row"><div class="rr-label">Modificaciones</div><div class="rr-val">Cualquier modificación del equipo debe pasar por proceso de <strong>Administración del Cambio</strong> de Mantoverde.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="dot"></div>Mantenimiento</div>
+    <div class="card-body">
+      <p>Los equipos deben tener un <strong>programa de mantenimiento auditable en faena</strong>, siguiendo las indicaciones del fabricante. Es responsabilidad del Administrador de Contrato revisar y verificar su cumplimiento.</p>
+      <div class="ok-box" style="margin-top:.75rem">✅ Los registros de mantenimiento deben mantenerse en archivo y estar disponibles para auditoría.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ CONDUCTOR ══════════════════ -->
+<div class="section" id="s-conductor">
+
+  <div class="card">
+    <div class="card-header"><div class="dot"></div>Requisitos para operar un EMS en Mantoverde</div>
+    <div class="card-body">
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><div class="step-body"><h4>Acreditación en WORKMATE</h4><p>Acreditar al trabajador como conductor/operador en la plataforma WORKMATE según los requisitos establecidos.</p></div></div>
+        <div class="step"><div class="step-num">02</div><div class="step-body"><h4>Licencia Municipal vigente</h4><p>Correspondiente al tipo de equipo que va a operar.</p></div></div>
+        <div class="step"><div class="step-num">03</div><div class="step-body"><h4>Licencia Interna Mantoverde</h4><p>Tramitada según instructivo CC.MV.GSSO.I014 Obtención de Licencias Internas.</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="dot"></div>Acreditación del equipo</div>
+    <div class="card-body">
+      <p style="margin-bottom:.75rem">Para ingresar un EMS a Mantoverde, se debe cargar en <strong>WORKMATE</strong>:</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1rem">
+        <span class="tag blue">Certificado de cumplimiento del estándar (SSO)</span>
+        <span class="tag blue">Revisión Técnica y Gases (vehículos de carretera)</span>
+        <span class="tag blue">Permiso de Circulación (vehículos de carretera)</span>
+        <span class="tag blue">SOAP vigente (vehículos de carretera)</span>
+      </div>
+      <div class="ok-box">✅ La acreditación de los EMS <strong>no está limitada por antigüedad</strong>, salvo lo indicado en el Instructivo I022 o los contratos comerciales.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="dot"></div>Aptitud laboral del operador</div>
+    <div class="card-body">
+      <div class="alert">Debe existir una <strong>política de aptitud laboral</strong> que defina el tratamiento de operadores que consuman medicamentos o presenten condiciones incompatibles con la operación segura de equipos.</div>
+      <p style="font-size:.85rem;color:#6b6b6b">El operador tiene la responsabilidad de informar a su jefatura si se encuentra en condiciones que comprometan su capacidad de operar el equipo de forma segura.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ CERTIFICADO OVERLAY ══════════════════ -->
+<div id="cert-overlay">
+  <div id="cert-box">
+    <div class="cert-top">
+      <span>CAPSTONE COPPER · MANTOVERDE</span>
+      <button onclick="closeCert()" title="Cerrar">✕</button>
+    </div>
+    <div class="cert-body">
+      <div class="cert-seal">🏆</div>
+      <h2>Certificado de aprobación</h2>
+      <p style="font-size:.82rem;color:#aaa;margin-bottom:.5rem">Este certificado acredita que</p>
+      <div class="cert-name" id="cert-name-display">—</div>
+      <div class="cert-course">ha completado exitosamente la capacitación</div>
+      <div style="font-size:1.05rem;font-weight:700;color:#1c1c1c;margin:.3rem 0">EPEF N°2 — Equipos Móviles de Superficie</div>
+      <div class="cert-std">Estándar CC.MV.GSSO.E002 · Capstone Copper / Mantoverde</div>
+      <hr class="cert-divider">
+      <div class="cert-meta">
+        <div><div class="cm-val" id="cert-score">8/8</div><div class="cm-lbl">Nota obtenida</div></div>
+        <div><div class="cm-val" style="color:#1e7b34">100%</div><div class="cm-lbl">Porcentaje</div></div>
+        <div><div class="cm-val" id="cert-date">—</div><div class="cm-lbl">Fecha</div></div>
+      </div>
+      <div style="font-size:.78rem;color:#bbb;margin-bottom:1.25rem">Gerencia Sulfuros — Mantoverde S.A.</div>
+      <div class="cert-actions">
+        <button class="btn-print" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+        <button class="btn-close" onclick="closeCert()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ QUIZ ══════════════════ -->
+<div class="section" id="s-quiz">
+  <div class="card">
+    <div class="card-header"><div class="dot"></div>Antes de comenzar, ingresa tu nombre</div>
+    <div class="card-body">
+      <div class="name-form">
+        <label for="user-name">Nombre completo</label>
+        <input type="text" id="user-name" placeholder="Ej: Juan Pérez González" maxlength="80">
+      </div>
+      <p style="font-size:.82rem;color:#999">Necesario para generar tu certificado si apruebas con 100%.</p>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="dot"></div>Verifica lo que aprendiste — debes responder todo correcto para aprobar</div>
+    <div class="card-body" id="quiz-wrap">
+      <div class="progress-wrap"><div class="progress-fill" id="prog" style="width:0%"></div></div>
+      <div id="q-body"></div>
+    </div>
+    <div class="card-body score-wrap" id="score-wrap" style="display:none">
+      <div class="score-icon" id="score-icon">📖</div>
+      <h3 id="score-title"></h3>
+      <p id="score-sub"></p>
+      <div id="cert-btn-wrap" style="display:none;margin-top:1rem">
+        <button onclick="showCert()" style="background:#1e7b34;color:#fff;border:none;border-radius:8px;padding:.75rem 2rem;font-size:1rem;cursor:pointer;font-weight:600">🏆 Ver mi certificado</button>
+      </div>
+      <button id="restart-btn" onclick="restartQuiz()">Intentar de nuevo</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p><strong>EPEF N°2 — Equipos Móviles de Superficie</strong> · Capstone Copper / Mantoverde · CC.MV.GSSO.E002 · Versión 0 · Vigente desde 01/12/2023</p>
+  <p style="margin-top:.5rem">Elaborado y aprobado por la Gerencia de Seguridad y Salud Ocupacional – Mantoverde S.A.</p>
+</footer>
+
+<script>
+const questions = [
+  {
+    q:"¿Qué sistema anticolisión se usa en el área MINA para los equipos móviles de superficie?",
+    opts:["Sistema PRECO","Sistema CAS","Sistema ANSUL","Sistema FOPS"],
+    c:1,
+    fb:"Correcto. En el área Mina se usa el sistema CAS. El sistema PRECO se usa en Planta y en áreas estrechas. Algunos equipos deben tener ambos."
+  },
+  {
+    q:"¿Dónde debe instalarse la baliza ámbar en un equipo móvil de superficie?",
+    opts:["En la parte delantera del equipo","En la cabina, junto al conductor","En el punto más alto del equipo","En cualquier lugar visible"],
+    c:2,
+    fb:"Correcto. La baliza debe instalarse en el punto más alto del equipo para que sea visible desde cualquier dirección. Nunca puede ser portátil ni magnética."
+  },
+  {
+    q:"¿Cuándo se puede usar el celular mientras se opera un equipo?",
+    opts:["Con sistema manos libres siempre","Solo para llamadas cortas","Nunca durante la conducción, solo con equipo detenido en zona segura","Solo en área Planta"],
+    c:2,
+    fb:"Correcto. Aunque tenga manos libres, el celular NO se puede usar durante la conducción. Solo cuando el equipo esté detenido y en zona segura."
+  },
+  {
+    q:"¿Qué equipos están EXCEPTUADOS del uso de pértiga?",
+    opts:["Minibuses y buses","Camiones de combustible y camiones fábrica","CAEX, cargadores frontales, palas y perforadoras","Grúas horquilla y minicargadores"],
+    c:2,
+    fb:"Correcto. Los equipos de alto tonelaje (CAEX, cargadores frontales, palas y perforadoras) están exceptuados del uso de pértiga por sus características constructivas."
+  },
+  {
+    q:"¿Con qué frecuencia deben inspeccionarse los estanques presurizados?",
+    opts:["Una vez al año","Dos veces al año","Cada 3 meses","Solo cuando hay falla visible"],
+    c:1,
+    fb:"Correcto. Los estanques presurizados deben ser inspeccionados 2 veces al año por un organismo competente que certifique su condición de operación segura."
+  },
+  {
+    q:"Si un elemento crítico del pre-uso (frenos, dirección, neumáticos) está defectuoso, el operador debe:",
+    opts:["Reportarlo al turno siguiente","Operar con precaución hasta el mantto","Detener el equipo inmediatamente — es una 'Condición de No Operar'","Solicitar autorización al supervisor para continuar"],
+    c:2,
+    fb:"Correcto. Los elementos críticos defectuosos son 'Condiciones de No Operar'. El equipo debe detenerse inmediatamente."
+  },
+  {
+    q:"¿En qué vidrios NO se deben instalar láminas anti-impacto?",
+    opts:["En los parabrisas delanteros","En vidrios laterales traseros","En los vidrios señalados como salida de emergencia en vehículos de pasajeros","En todos los vidrios se debe instalar"],
+    c:2,
+    fb:"Correcto. En los vidrios designados como salida de emergencia en vehículos de transporte de pasajeros NO se deben instalar láminas de seguridad, para que puedan romperse fácilmente en una emergencia."
+  },
+  {
+    q:"¿Qué equipos están EXCEPTUADOS de usar cuñas?",
+    opts:["Camiones CAEX y bulldozers","Grúas horquilla y minicargadores","Equipos que tienen implemento que puede bajar a piso como cargador frontal, motoniveladora y bulldozer","Ningún equipo está exceptuado"],
+    c:2,
+    fb:"Correcto. Los equipos con implemento de trabajo que puede bajar a piso (cargador frontal, motoniveladora, wheeldozer, bulldozer) están exceptuados porque ese implemento funciona como bloqueo del movimiento."
+  },
+];
+
+let cur=0, score=0, answered=false;
+
+function renderQ() {
+  const q = questions[cur];
+  document.getElementById('prog').style.width = (cur/questions.length*100)+'%';
+  let html = `<div class="q-num">Pregunta ${cur+1} de ${questions.length}</div><div class="q-text">${q.q}</div>`;
+  q.opts.forEach((o,i) => html += `<div class="opt" id="opt${i}" onclick="answer(${i})">${o}</div>`);
+  html += `<div class="feedback" id="fb"></div><button id="next-btn" onclick="nextQ()">${cur===questions.length-1?'Ver resultado':'Siguiente →'}</button>`;
+  document.getElementById('q-body').innerHTML = html;
+  answered = false;
+}
+
+function answer(i) {
+  if(answered) return;
+  answered = true;
+  const q = questions[cur];
+  document.querySelectorAll('.opt').forEach((el,idx) => {
+    el.style.cursor='default';
+    if(idx===q.c) el.classList.add('correct');
+    else if(idx===i&&i!==q.c) el.classList.add('wrong');
+  });
+  const fb = document.getElementById('fb');
+  fb.textContent = q.fb;
+  fb.style.display = 'block';
+  fb.className = 'feedback ' + (i===q.c ? 'ok-f' : 'err-f');
+  if(i===q.c) score++;
+  document.getElementById('next-btn').style.display='inline-block';
+}
+
+function nextQ() {
+  cur++;
+  if(cur>=questions.length) showResult();
+  else renderQ();
+}
+
+function showResult() {
+  document.getElementById('prog').style.width='100%';
+  document.getElementById('quiz-wrap').style.display='none';
+  const sw = document.getElementById('score-wrap');
+  sw.style.display='block';
+  const total = questions.length;
+  const approved = score === total;
+  document.getElementById('score-icon').textContent = approved ? '🏆' : '📖';
+  document.getElementById('score-title').textContent = score+' de '+total+' correctas ('+Math.round(score/total*100)+'%)';
+  if(approved) {
+    document.getElementById('score-sub').textContent = '¡Perfecto! Respondiste todo correcto. Ya puedes obtener tu certificado.';
+    document.getElementById('score-sub').style.color = '#1e7b34';
+    document.getElementById('cert-btn-wrap').style.display = 'block';
+  } else {
+    const wrong = total - score;
+    document.getElementById('score-sub').textContent = 'Tuviste '+ wrong +' error'+(wrong>1?'es':'')+'. Necesitas 100% correcto para aprobar. Revisa el material e intenta de nuevo.';
+    document.getElementById('score-sub').style.color = '#c0392b';
+    document.getElementById('cert-btn-wrap').style.display = 'none';
+  }
+}
+
+function showCert() {
+  const nombre = document.getElementById('user-name').value.trim() || 'Participante';
+  const fecha = new Date().toLocaleDateString('es-CL', {day:'2-digit', month:'long', year:'numeric'});
+  document.getElementById('cert-name-display').textContent = nombre;
+  document.getElementById('cert-score').textContent = questions.length+'/'+questions.length;
+  document.getElementById('cert-date').textContent = fecha;
+  document.getElementById('cert-overlay').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+
+function closeCert() {
+  document.getElementById('cert-overlay').classList.remove('show');
+  document.body.style.overflow='';
+}
+
+function restartQuiz() {
+  cur=0; score=0; answered=false;
+  document.getElementById('quiz-wrap').style.display='block';
+  document.getElementById('score-wrap').style.display='none';
+  renderQ();
+}
+
+function show(id) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('show'));
+  document.getElementById('s-'+id).classList.add('show');
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.remove('active'));
+  const idx=['intro','equipo','operacion','conductor','quiz'].indexOf(id);
+  document.querySelectorAll('nav.tabs button')[idx].classList.add('active');
+  if(id==='quiz'&&cur===0&&!answered) renderQ();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.getElementById('cert-overlay').addEventListener('click', function(e){
+  if(e.target===this) closeCert();
+});
+</script>
+</body>
+</html>
